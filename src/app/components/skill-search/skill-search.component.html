@@ -1,0 +1,22 @@
+
+    <div class="search">
+        <input type="text" (input)="KeyDown($event)" [(ngModel)]="skillInput" 
+        [matAutocomplete]="autoSkill"
+        name="skillID"  class="searchTerm" placeholder="Skill....">
+        <button type="submit"  class="searchButton" >
+          <i class="fa fa-search"></i>
+        </button>
+    </div>
+    <div>
+                    
+        <mat-autocomplete #autoSkill="matAutocomplete">
+          <mat-option *ngFor="let skill of filteredSkillList "
+          (click) ="MatOptionClicked(skill)"
+          [value]="skill.id">
+            
+            <span>{{ skill.name }}</span> |
+            <span>{{skill.id}}</span>
+          </mat-option>
+        </mat-autocomplete>
+</div>
+

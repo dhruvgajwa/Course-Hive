@@ -1,0 +1,28 @@
+
+<div class=" mt-3" style="width: 600px;margin-left: auto;margin-right: auto;">
+  <div class="search">
+    <input type="text" (input)="KeyDown($event)" [(ngModel)]="studentName" 
+    [matAutocomplete]="autoStudent"
+    name="CourseId"  class="searchTerm" placeholder="Student Name or roll number">
+    <button type="submit"  class="searchButton" >
+    Search
+  </button>
+  </div>
+</div>
+
+
+
+<div>
+  <mat-autocomplete #autoStudent="matAutocomplete">
+    <mat-option *ngFor="let student of filteredStudents "
+      (click) ="MatOptionClicked(student)"
+      [value]="student.fId">
+      <span>
+        <img src="{{student.image}}" alt="{{student.rollNo}}" style="height: 64px;width: 64px;">
+      </span>
+      <span>{{ student.name }}</span> |
+      <span>{{student.rollNo}}</span>
+    </mat-option>
+  </mat-autocomplete>
+</div>
+

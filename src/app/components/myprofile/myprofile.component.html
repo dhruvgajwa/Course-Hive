@@ -1,0 +1,269 @@
+<div class="container">
+    <div class="row mt-5">
+      <div class="col-sm-4 text-center align-self-center">
+        <div>
+          <button class="btn" style="background: transparent"> 
+            <img style=" height: 150px;
+            width: 150px; background-color: cornsilk"
+            data-toggle="modal"
+            data-target="#myModal"
+          
+            src={{profile.image}} class="rounded-circle img">
+          </button>
+        </div> 
+        
+      </div>
+    <!-- add photo modal -->
+  
+      <div class="col-sm-4 align-self-center">
+        <div class="row">
+          <div class="col-8">
+              <h4  style="font-weight: normal; opacity: 0.7; display: inline-block;">{{profile.name}} </h4>
+              <h5 style="font-size: medium">{{profile.rollNo}}</h5>
+          </div>      
+        </div>
+      </div>
+  </div>
+
+  <div class="mt-5">
+      <div class="row mt-2">
+        <div class="col-4 text-center">
+                Karma Point
+        </div>
+        <div class="col-8">
+            : {{karmaPoints}}
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-4 text-center">
+                Reviews
+        </div>
+        <div class="col-8">
+            : {{reviews}}
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-4 text-center">
+                Content Uploads
+        </div>
+        <div class="col-8">
+            : {{uploads}}
+        </div>
+      </div>
+  </div>
+
+  <div class="mt-5" >
+     My Pinned Courses <span class="ml-3" 
+     ><i class="fa fa-edit" style="cursor: pointer;" id="myPinnedCoursesEdit" (click)="myPinnedCoursesEditClicked()"></i></span>
+
+      <span  id="myPinnedCoursesSave"  class="showPostEditClick" style="float: right;display: none;">
+       <button class="btn btn-success" (click)="SaveMyPinnedCourses()">Save</button> </span>
+
+      <div id="myPinnedCoursesSearch" class="showPostEditClick px-md-5 my-3" style="display: none;">
+        <app-search  (addCourseToMyPinnedCourses)="addCourseToMyPinnedCourses($event)"></app-search>
+      </div>
+      <div class="row no-gutters justify-content-start">
+      <div *ngFor="let pinnedCourse of profile.myPinnedCourses"
+      (click)="stopPropogation($event)"
+        (click)="OpenThisCourse(pinnedCourse.id)"
+       class="col pinnedCourses mx-2"
+       style="position: relative;">
+        {{pinnedCourse.name}} | {{pinnedCourse.id}}
+        <i class="fa fa-times removeMyPinnedCourse" (click)="RemoveThisPinnedCourse($event, pinnedCourse)" style="right: 20px;top: 20px;position: absolute;cursor: pointer;display: none;"></i>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="mt-5" >
+    My Skills 
+    <span class="ml-3">
+      <i class="fa fa-edit" style="cursor: pointer;" id="mySkillsEdit" (click)="mySkillsEditClicked()"></i>
+    </span>
+    <!-- <span  id="mySkillsSave"  class="showOptionToEdit" style="float: right;display: none;">
+      <button class="btn btn-success" (click)="SaveMySkills()">Save</button> </span> -->
+
+     
+    <div id="mySkillsSearch" class="" style="display: none;">
+      <!-- Here Add the Skills wala matInput -->
+      
+
+      <div class="example-form bd-callout-warning" >
+        <div class="example-full-width mb-3">
+          <input matInput id="newSKillJSONString"  placeholder="You Skill" value="Default" style="display: none;">
+          <input matInput id="newSkillName"  placeholder="You Skill" value="Default" style="display: none;">
+          <input matInput id="newSkillID"  placeholder="You Skill" value="Default" style="display: none;">
+          <app-search-by-skill  (returnSkill)="returnSkill($event)"></app-search-by-skill>
+        </div>
+        
+        <mat-radio-group   aria-label="Select an option">
+          <mat-radio-button name="newSkillExpertiseLevel"  class="mx-3" value="1">Beginner</mat-radio-button>
+          <mat-radio-button name="newSkillExpertiseLevel"  class="mx-3" value="2">Intermediate</mat-radio-button>
+          <mat-radio-button name="newSkillExpertiseLevel" class="mx-3"value="3">expert</mat-radio-button>
+        </mat-radio-group>
+        <mat-form-field   class="example-full-width">
+          <mat-label>Describe a bit about your projects so people can approach you!</mat-label>
+          <textarea matInput
+          cdkTextareaAutosize
+          #autosize="cdkTextareaAutosize"
+          cdkAutosizeMaxRows="5" id="newSkillDescription" placeholder="Description"></textarea>
+        </mat-form-field>
+        <button id="newSkillSaveBtn" class="btn btn-success" style="float: right;" (click)="SaveMySkills()">Save</button>
+      </div>
+    </div>
+     <div >
+       <div *ngIf="profile.mySkills.length ===0" class="bg-danger p-2 mt-2">
+
+        <div class="row justify-content around">
+          <div class="col">
+            <strong> <h4 style="color: white;">No Skills Mentioned</h4></strong>
+          
+          </div>
+          <div class="col" style="cursor: pointer;" (click)="mySkillsEditClicked()">
+            <strong style="float: right;"> <h5 style="color: white;" >Add</h5></strong>
+         
+          </div>
+        </div> 
+       </div>
+      <div *ngFor="let skills of profile.mySkills"
+        class="pinnedCourses mx-2"
+        (click)="stopPropogation($event)"
+        (click)="openThisSkill(skills.id)"
+        style="position: relative;">
+        {{skills.name}} | <span style="font-size: 12px;"> {{skills.expertiseLevel}}</span>
+        <div>
+          {{skills.description}}
+        </div>
+        <i class="fa fa-times removeMySkills" (click)="stopPropogation($event)" (click)="RemoveThisSkill(skills)" style="right: 20px;top: 20px;position: absolute;cursor: pointer;display: none;"></i>
+      </div>
+    </div>
+ </div>
+
+ <div class="mt-5">
+
+ </div>
+
+ <mat-tab-group  >
+  <mat-tab label="My Uploads" *ngIf="profile.myUploads.length > 0"> 
+    <div >
+      My Uploads
+      <div *ngFor =" let content of profile.myUploads">
+        <div class="bd-callout-warning ">
+          <div class="row justify-content-between mt-2">
+              <div class="col-4">
+                  <p class="card-text">{{content.courseId}} | {{content.courseName}} | {{content.documentType}}</p>
+                  <div class="row">
+                    <div class="col text-left">
+                      <i class="fa fa-arrow-up pointer"
+                      
+                       [style.color]="IUpvotedContent(content.upVotedBy) ? '#FF6347' : '#212529'">{{content.upVotedBy.length}}</i> 
+                      <span class="ml-3">
+                             <i class="fa fa-arrow-down pointer"
+                           
+                             [style.color]="IDownVotedContent(content.downVotedBy) ? '#FF6347' : '#212529'">{{content.downVotedBy.length}}</i> 
+                      </span>
+                 </div>
+                  </div>
+
+              </div>
+              <div class="col-4">
+                  <button (click)="DownloadClicked(content.documentAddress)"
+                   class="btn btn-light"><i class="fa fa-download">
+                      Download
+                  </i></button>
+              </div>
+              <div class="col-4 text-right">
+                <i [matMenuTriggerFor]="menu" style="width: 40px;" class="fa  fa-ellipsis-v pointer" ></i>
+          
+                <mat-menu #menu="matMenu">
+                  <button (click)="DeleteContent(content)" mat-menu-item>    
+                    <span>Delete</span>
+                  </button>
+                </mat-menu>
+                
+              </div>
+            
+          </div>
+          
+      </div>
+     </div>
+    </div>
+    </mat-tab>
+
+    <mat-tab label="My Reviews" *ngIf="isMyReviewsDefined()">
+      <div >
+       
+        <div *ngFor="let review of profile.myReviews">
+            <div class="bd-callout-warning ">
+                    <div >
+                        <p class="card-text">{{review.courseId}} | {{review.review}}</p>
+                        <div class="row">
+                          <div class="col text-left">
+                            <i class="fa fa-arrow-up pointer"
+                            
+                             [style.color]="IUpvoted(review.upVotedBy) ? '#FF6347' : '#212529'">{{review.upVotedBy.length}}</i> 
+                            <span class="ml-3">
+                                   <i class="fa fa-arrow-down pointer"
+                                   
+                                   [style.color]="IDownVoted(review.downVotedBy) ? '#FF6347' : '#212529'">{{review.downVotedBy.length}}</i> 
+                            </span>
+                          </div>
+                        </div>
+                        
+                    </div>
+                    <div class="row justify-content-between mt-2">
+                        <div class="col text-left">
+                          for course: {{review.courseId}} <span class="ml-5">  at: {{getDate(review.at)}} </span>
+                            
+                        </div>
+                        <div class="col text-right pointer">
+                                
+                                              
+                                 <i  [matMenuTriggerFor]="menu"  class="fa  fa-ellipsis-v pointer"></i>
+          
+                                <mat-menu  #menu="matMenu">
+                                  <button (click)="DeleteReview(review)"   mat-menu-item>
+                                    
+                                    <span>Delete</span>
+                                  </button>
+                                  
+                                </mat-menu>
+                             
+                        </div>
+                        
+                       
+                        
+                    </div>
+            </div>
+        </div>
+    </div>
+    </mat-tab>
+
+    <mat-tab label="My Notification" *ngIf="profile.myNotifications.length > 0">
+      <div style="float: right;">
+        <button class="btn btn-sm btn-secondary" (click)="cleanNotifications();">Clean Notifications</button>
+      </div> 
+      <!-- make it lazy loading! and also add a floating number head for number of notifications!  also custom template-->
+      <div style="height: 12px;">
+
+      </div>
+      <div *ngFor="let notification of profile.myNotifications">
+        <div class="bd-callout-warning " style="position: relative;cursor: pointer;" (click)="handleNotificationClick(notification.clickLink)">
+            {{notification.heading}}
+            <div>
+              {{notification.body}}
+            </div>
+            <div style="position: absolute;right: 8px;bottom: 8px;">
+              {{getDate(notification.receivedOn)}}
+            </div>
+        </div>
+    </div>
+      </mat-tab>
+</mat-tab-group>
+
+
+
+  </div>
+  
+  <!-- <button (click)="AddDemoNotification()">AddDemoNotification</button>
+  <button (click)="checkGettingAllStudentsPinnedThisCOurse()">click </button> -->

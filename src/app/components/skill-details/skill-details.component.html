@@ -1,0 +1,37 @@
+<div class="container">
+    <div class=" pt-3 pb-2 mb-3 border-bottom">
+      <div style="display: flex;flex-direction: row; flex-wrap: nowrap;justify-content: space-between; align-content: center;">
+        <div>
+          <h1 class="h2">{{skill.name}} | <small>{{allStudents.length}} students</small></h1>  
+        </div>
+        <div>
+          <button id="skillPinButton" class="btn btn-success btn-sm" (click)="saveAsYourSkill()">Save as your skill</button>
+        </div>
+      </div>
+       
+      </div>
+
+     
+
+      <div class="row">
+        <div class="col-3" *ngFor="let student of allStudents">
+            <div class="card mr-2" >
+                <img class="card-img-top mx-4" src="{{getImage(student.rollNo)}}" alt="Card image cap" style="height: 120px;width: 120px;  object-fit: cover;
+                object-position: center;">
+                <div class="card-body">
+                  <h5 class="card-title">{{student.name}}</h5>
+                  <p class="card-text">Roll No: {{student.rollNo}} </p>
+                  <a (click)="contactMe(student.studentFId)" class="btn btn-primary" style="color: white;">contact me</a>
+                </div>
+              </div>
+        </div>
+        <div *ngIf= "allStudents.length === 0">
+          No Sudents
+        </div>
+      </div>
+
+      
+        
+      
+
+</div>

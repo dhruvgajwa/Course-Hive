@@ -1,0 +1,22 @@
+
+    <div class="search">
+        <input type="text" (input)="KeyDown($event)" [(ngModel)]="CourseId" 
+        [matAutocomplete]="autoCity"
+        name="CourseId"  class="searchTerm" placeholder="Course Id">
+        <button type="submit"  class="searchButton" >
+          Course
+        </button>
+    </div>
+    <div>
+                    
+        <mat-autocomplete #autoCity="matAutocomplete">
+          <mat-option *ngFor="let course of filteredCoursesList "
+          (click) ="MatOptionClicked(course)"
+          [value]="course.id">
+            
+            <span>{{ course.name }}</span> |
+            <span>{{course.id}}</span>
+          </mat-option>
+        </mat-autocomplete>
+</div>
+

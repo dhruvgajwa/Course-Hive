@@ -1,0 +1,68 @@
+
+<nav  class="navbar navbar-expand navbar-light">
+    <div class="container">
+      <a  class="navbar-brand" style=" cursor: pointer;">
+       <h3  routerLink="/home"  style="color: #329296;font-weight: bold;" >
+        <div class="" style="display: flex;">
+          <div style="align-self: center">
+            <img style="height: 38px;width: 37px;" src="../../../assets/favicon.ico" alt="">
+          </div>
+          <div class=" pl-1" style="align-self: center">
+            CourseHive
+          </div>
+        </div>
+        
+        
+        </h3>
+      </a>
+      <div >
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a   routerLink="/home" class="nav-link">
+              <span class="hideOnBig"><i class="fa fa-home"></i></span>
+              <span class="hideOnSmall">
+                Home
+              </span> </a>
+          </li>
+          <li  *ngIf="!isLoggedIn" class="nav-item">
+            <a  routerLink="" class="nav-link">
+              <span >
+                Login/SignUp
+              </span>
+              </a>
+          </li>
+          <li style="cursor: pointer;" [matMenuTriggerFor]="profleMenu"  *ngIf="isLoggedIn" class="nav-item">
+            <a   class="nav-link">
+              <span class="hideOnBig"><i class="fa fa-user-circle"></i></span>
+              <span class="hideOnSmall">
+                {{name}}
+              </span>
+              </a>
+             
+          </li>
+      
+        
+          
+          <mat-menu #profleMenu="matMenu">
+            <button routerLink="/myprofile" mat-menu-item>Profile</button>
+            <button *ngIf="isLoggedIn" (click)="OnLogoutCLick()" mat-menu-item>Logout</button>
+           
+          </mat-menu>
+          
+<!-- 
+            <li  *ngIf="isLoggedIn" class="nav-item" >
+              
+              <a class="hideOnSmall" id="logout"  (click)="OnLogoutCLick()" class="nav-link" style="color: #DFDFDF">
+                <span class="hideOnBig">
+                  <i class="fa fa-sign-out" aria-hidden="true"></i>
+                </span>
+                <span class="hideOnSmall">
+                  Logout
+                </span></a>
+            </li> -->
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
